@@ -5,20 +5,9 @@
  *
  */
 
-
 import { buildTheme } from 'base16-builder'
 import { apps, brightness } from './config.js'
 import fs from 'fs-promise'
-
-
-// Need to loop through the list of desired applications for which to generate a theme
-// For each, need to generate the config files, append  and write them to their respective places
-// Some files (ex. i3) will need to have some changes added on certain lines, but most can be appended
-// to the existing config file.
-
-
-// Get all the base16 schemes and then pick a random one
-// Loop through config
 
 (async function(){
 
@@ -44,7 +33,8 @@ import fs from 'fs-promise'
 
   // Get the scheme name
   let schemeName = schemes[num].substring(0, schemes[num].length - 4)
-  
+  console.log(schemeName) 
+
   // Get the chosen scheme file
   let scheme
   try{
@@ -62,24 +52,18 @@ import fs from 'fs-promise'
       console.log(`Couldnt read template for ${app}: ${err}`)
     }
   }))
-
-  await Promise.all(Object.keys(apps).map(async app => {
-    // Generate the theme files for each app
-    let theme = buildTheme(scheme, templates[app])  
-
-    // Save each theme-file in the proper location
-    let name = apps[app].name != undefined ?  `${apps[app].name}` : `${schemeName}_${app}${apps[app].ext}`
-    console.log(name)
+  
+  // The different promises have to be done in series to make sure
+  // there are no file write conflicts when the same file is being edited for 
+  // two different files (i.e vim and vim_airline)
+  let keys = Object.keys(apps)
+  for(let i = 0; i < keys.length; i++){
+    let theme = buildTheme(scheme, templates[keys[i]])  
     try {
-      await fs.writeFile(`${dir}/${name}`, theme)   
+      await apps[keys[i]].apply(theme, schemeName)
     } catch(err){
-      console.log(`Couldn't write the theme file: ${err}`)
+      console.log(`Couldn't apply the theme: ${err}`)
     }
-  }))
-
-  // For some apps, certain config files will have other info besides theme stuff
-  // Need to figure out a way to add to those files, without disrupting other config
-  // One method would be to have different functions for all the different apps that handle everything differently
-  // and just send those functions the theme
+  }
 
 })()

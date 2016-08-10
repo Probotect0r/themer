@@ -8,15 +8,18 @@ const apps = {
   },
   'rxvt-unicode': {
     path: '~/',
-    name: '.Xresources'
+    name: '.Xresources',
+    apply: rxvt_unicode
   },
   'vim-airline': {
     path: '~/.vim/bundle/vim-airline-themes/autoload/airline/themes/',
-    ext: '.vim'
+    ext: '.vim',
+    apply: vim_airline
   },
   'vim': {
     path: '~/.vim/colors/',
-    ext: '.vim'
+    ext: '.vim',
+    apply: vim
   }
 }
 
