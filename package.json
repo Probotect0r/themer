@@ -1,0 +1,21 @@
+{
+  "name": "themer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "themer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "babel src -d dist",
+    "start": "node dist/index.js",
+    "watch": "nodemon --watch src --exec npm start"
+  },
+  "author": "",
+  "dependencies": {
+    "base16-builder": "^1.2.0",
+    "fs-promise": "^0.5.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-node5": "^11.1.0"
+  }
+}
