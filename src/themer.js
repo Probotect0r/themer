@@ -87,7 +87,7 @@ export async function rxvt_unicode(theme, schemeName){
 
   // Remove the previous scheme settings
   let colorReg = /URxvt\*[a-zA-z0-9:\s]*#[0-9a-zA-Z]{6}\n/g // Regex for the color settings
-  let nameReg = /^!\s(Base16|Scheme:)\s[a-zA-z0-9\s<@.>():\/-]*\n/gm // Regex for the Name and Scheme info comments
+  let nameReg = /^!\s(Base16|Scheme:)\s[a-zA-z0-9\s<>@.:()\/-]*\n/gm // Regex for the Name and Scheme info comments
   let update = file.replace(colorReg, '').replace(nameReg, '')
   update = update + theme
 
