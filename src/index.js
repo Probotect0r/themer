@@ -1,6 +1,6 @@
 /*
  * Author: Sagar Desai
- * Description: Purpose of this project is to randomly generate a full theme for linux 
+ * Description: Purpose of this project is to randomly generate a full theme for linux
  * environment based on a base16 theme. This includes generating themes for multiple different applications.
  *
  */
@@ -11,36 +11,39 @@ import fs from 'fs-promise'
 
 (async function(){
 
-  // Make sure the results directory exists and is empty otherwise create it
-  const dir = __dirname + '/themes' 
-  try {
-    await fs.emptyDir(dir)
-  } catch(err){
-    console.log(`Couldn't create the themes directory: ${err}`)
-  }
-  
-  // Load all the schemes files
+  // Need to check if there was a scheme name specified and use that
+  // Otherwise choose a random scheme
+  let schemeName
   let basePath = 'node_modules/base16-builder/dist/db/'
-  let schemes
-  try{
-    schemes = await fs.readdir(basePath + 'schemes')
-  } catch(error){
-    return console.log('Couldn\'t read the schemes:', error) 
+  console.log(process.argv)
+
+  if(process.argv[2] != null){
+    schemeName = process.argv[2]
   }
+  else {
+    // Load all the schemes files
+    let schemes
+    try{
+      schemes = await fs.readdir(basePath + 'schemes')
+    } catch(error){
+      return console.log('Couldn\'t read the schemes:', error)
+    }
 
-  // Get a random int between 0 and # of schmes
-  let num = Math.floor(Math.random() * (schemes.length + 1))
+    // Get a random int between 0 and # of schmes
+    let num = Math.floor(Math.random() * (schemes.length + 1))
 
-  // Get the scheme name
-  let schemeName = schemes[num].substring(0, schemes[num].length - 4)
-  console.log(schemeName) 
+    // Get the scheme name
+    schemeName = schemes[num].substring(0, schemes[num].length - 4)
+
+  }
+  console.log('schemeName:', schemeName)
 
   // Get the chosen scheme file
   let scheme
   try{
-    scheme = await fs.readFile(basePath + 'schemes/' + schemes[num], 'utf8')
+    scheme = await fs.readFile(basePath + 'schemes/' + schemeName + '.yml', 'utf8')
   } catch(error){
-    console.log('Couldnt read the scheme file.' + error) 
+    console.log('Couldnt read the scheme file.' + error)
   }
 
   // Get all the templates for the specified apps

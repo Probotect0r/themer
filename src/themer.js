@@ -35,7 +35,6 @@ export async function vim_airline(theme, schemeName){
   let sNameReg = /#base16[a-z0-9_-]*#/
   let matches = theme.match(sNameReg)
   schemeName = matches[0].substring(1, matches[0].length - 1)
-  console.log(schemeName) 
   
   // Write the theme file to the .vim/bundle/v folder
   let fileName = schemeName
@@ -65,16 +64,6 @@ export async function vim_airline(theme, schemeName){
   }
 }
 
-export async function i3(theme, schemeName){
-  let file
-  try{
-    file = await fs.readFile(`${process.env.HOME}/.config/i3/config`, 'utf8')
-  } catch(err){
-    console.log(`Couldn't read vimrc: ${err}`)
-  }
-//  console.log(theme)
-  
-}
 
 export async function rxvt_unicode(theme, schemeName){
 
@@ -100,4 +89,25 @@ export async function rxvt_unicode(theme, schemeName){
   
   // Need to update Xrdb
   execSync('xrdb ~/.Xresources')
+}
+
+// Applies the theme to the i3 config
+export async function i3(theme, schemeName){
+  let file
+  try{
+    file = await fs.readFile(`${process.env.HOME}/.config/i3/config`, 'utf8')
+  } catch(err){
+    console.log(`Couldn't read vimrc: ${err}`)
+  }
+
+  // Need to get the individual sections from the theme
+  // Then replace the corresponding sections in the config with the new ones
+  
+
+  let update
+  let clientReg = /\s*client.(focused|unfocused|urgent|focused_inactive)\s.*\n/
+  let clientColors = theme.match(clientReg)
+  let colorReg = /set\s\$base[0-9A-F]{2}\s#[0-9a-zA-Z]{6}\n/
+  update = file.replace(clientReg, '').replace(colorReg, '')
+  
 }

@@ -19,6 +19,7 @@ Run `npm i` to install the packages. Then run `npm run start` to run the script.
 * Add support for more applications.
 * Add the ability to specify the applications for which the theme should be changed, via a config file.
 * Add the ability to specify a list of themes which are to be avoided.
+* Add the option of specifying the scheme to use (instead of a random one)
 
 ### Contributing
 
