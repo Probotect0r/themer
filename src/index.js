@@ -15,7 +15,6 @@ import fs from 'fs-promise'
   // Otherwise choose a random scheme
   let schemeName
   let basePath = 'node_modules/base16-builder/dist/db/'
-  console.log(process.argv)
 
   if(process.argv[2] != null){
     schemeName = process.argv[2]

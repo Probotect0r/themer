@@ -76,7 +76,7 @@ export async function rxvt_unicode(theme, schemeName){
 
   // Remove the previous scheme settings
   let colorReg = /URxvt\*[a-zA-z0-9:\s]*#[0-9a-zA-Z]{6}\n/g // Regex for the color settings
-  let nameReg = /^!\s(Base16|Scheme:)\s[a-zA-z0-9\s<>@.:()\/-]*\n/gm // Regex for the Name and Scheme info comments
+  let nameReg = /^!\s(Base16|Scheme:)\s.*\n/gm // Regex for the Name and Scheme info comments
   let update = file.replace(colorReg, '').replace(nameReg, '')
   update = update + theme
 
@@ -102,12 +102,27 @@ export async function i3(theme, schemeName){
 
   // Need to get the individual sections from the theme
   // Then replace the corresponding sections in the config with the new ones
-  
-
   let update
-  let clientReg = /\s*client.(focused|unfocused|urgent|focused_inactive)\s.*\n/
+  let clientReg = /(client.(focused|unfocused|urgent|focused_inactive)\s.*\n)+/
+  let setColorReg = /(set\s\$base.{2}\s#.{6}\n)+/
+  let barColorsReg = /colors\s{[a-zA-Z0-9\s\n$_#]*}/
+
   let clientColors = theme.match(clientReg)
-  let colorReg = /set\s\$base[0-9A-F]{2}\s#[0-9a-zA-Z]{6}\n/
-  update = file.replace(clientReg, '').replace(colorReg, '')
+  let setColors = theme.match(setColorReg)
+  let barColors = theme.match(barColorsReg)
+  //console.log('CLIENT COLORS IN THEME:', clientColors)
+  //console.log('SET COLORS IN THEME:', setColors)
+  //console.log('BAR COLORS IN THEME:', barColors)
   
+  let testSetColors = file.match(setColorReg)
+  if(testSetColors == null) update = '# Set colors\n' + setColors[0] + '\n' + file
+  else update = file.replace(setColorReg, setColors[0])
+  update = update.replace(clientReg, clientColors[0]).replace(barColorsReg, barColors[0])
+
+  // Write the update
+  try{
+    await fs.writeFile(`${process.env.HOME}/.config/i3/config`, update)
+  } catch(err){
+    console.log(`Couldnt write i3 config file: ${err}`)
+  }
 }
