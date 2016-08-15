@@ -1,28 +1,35 @@
-import { vim, vim_airline, rxvt_unicode, i3 } from './themer.js'
+import { vim, 
+  vim_airline, 
+  rxvt_unicode, 
+  i3,
+  i3status
+} from './themer.js'
 
-const apps = {
+const appsConf = {
   'i3': {
-    path: '~/.config/i3/',
-    name: 'config',
+    file: `${process.env.HOME}/.config/i3/config`,
     apply: i3
   },
   'rxvt-unicode': {
-    path: '~/',
-    name: '.Xresources',
+    file: `${process.env.HOME}/.Xresources`,
     apply: rxvt_unicode
   },
   'vim-airline': {
-    path: '~/.vim/bundle/vim-airline-themes/autoload/airline/themes/',
-    ext: '.vim',
+    file: `${process.env.HOME}/.vimrc`,
     apply: vim_airline
   },
   'vim': {
-    path: '~/.vim/colors/',
-    ext: '.vim',
+    file: `${process.env.HOME}/.vimrc`,
     apply: vim
+  },
+  'i3status': {
+    file: `${process.env.HOME}/.config/i3status/config`,
+    apply: i3status
   }
 }
 
+const apps = ['i3', 'rxvt-unicode', 'vim-airline', 'vim', 'i3status']
+
 const brightness = 'dark'
 
-export { apps, brightness }
+export { apps, brightness, appsConf }

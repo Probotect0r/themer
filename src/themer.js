@@ -1,7 +1,7 @@
 import fs from 'fs-promise'
 import { execSync } from 'child_process'
 
-export async function vim(theme, schemeName){
+export async function vim(theme, schemeName, file){
 
   // Write the theme file to the .vim/colors/ folder
   let fileName = `base16_${schemeName}`
@@ -9,14 +9,6 @@ export async function vim(theme, schemeName){
     await fs.writeFile(`${process.env.HOME}/.vim/colors/${fileName}.vim`, theme)
   } catch(err){
     console.log(`Couldnt write the theme file: ${err}`)
-  }
-
-  // Read the vimrc file
-  let file
-  try{
-    file = await fs.readFile(`${process.env.HOME}/.vimrc`, 'utf8')
-  } catch(err){
-    console.log(`Couldn't read vimrc: ${err}`)
   }
 
   // find the colorscheme line in .vimrc file and change it to use the new theme
@@ -31,7 +23,9 @@ export async function vim(theme, schemeName){
   }
 }
 
-export async function vim_airline(theme, schemeName){
+export async function vim_airline(theme, schemeName, file){
+  // Get the scheme name used in the template so we can use 
+  // that as the file name (I think they have to be the same?)
   let sNameReg = /#base16[a-z0-9_-]*#/
   let matches = theme.match(sNameReg)
   schemeName = matches[0].substring(1, matches[0].length - 1)
@@ -42,14 +36,6 @@ export async function vim_airline(theme, schemeName){
     await fs.writeFile(`${process.env.HOME}/.vim/bundle/vim-airline-themes/autoload/airline/themes/${fileName}.vim`, theme)
   } catch(err){
     console.log(`Couldnt write the theme file: ${err}`)
-  }
-
-  // Read the vimrc file
-  let file
-  try{
-    file = await fs.readFile(`${process.env.HOME}/.vimrc`, 'utf8')
-  } catch(err){
-    console.log(`Couldn't read vimrc: ${err}`)
   }
 
   // find the colorscheme line in .vimrc file and change it to use the new theme
@@ -64,15 +50,7 @@ export async function vim_airline(theme, schemeName){
   }
 }
 
-
-export async function rxvt_unicode(theme, schemeName){
-
-  let file
-  try{
-    file = await fs.readFile(`${process.env.HOME}/.Xresources`, 'utf8')
-  } catch(err){
-    console.log(`Couldn't read vimrc: ${err}`)
-  }
+export async function rxvt_unicode(theme, schemeName, file){
 
   // Remove the previous scheme settings
   let colorReg = /URxvt\*[a-zA-z0-9:\s]*#[0-9a-zA-Z]{6}\n/g // Regex for the color settings
@@ -92,13 +70,7 @@ export async function rxvt_unicode(theme, schemeName){
 }
 
 // Applies the theme to the i3 config
-export async function i3(theme, schemeName){
-  let file
-  try{
-    file = await fs.readFile(`${process.env.HOME}/.config/i3/config`, 'utf8')
-  } catch(err){
-    console.log(`Couldn't read vimrc: ${err}`)
-  }
+export async function i3(theme, schemeName, file){
 
   // Need to get the individual sections from the theme
   // Then replace the corresponding sections in the config with the new ones
@@ -110,9 +82,6 @@ export async function i3(theme, schemeName){
   let clientColors = theme.match(clientReg)
   let setColors = theme.match(setColorReg)
   let barColors = theme.match(barColorsReg)
-  //console.log('CLIENT COLORS IN THEME:', clientColors)
-  //console.log('SET COLORS IN THEME:', setColors)
-  //console.log('BAR COLORS IN THEME:', barColors)
   
   let testSetColors = file.match(setColorReg)
   if(testSetColors == null) update = '# Set colors\n' + setColors[0] + '\n' + file
@@ -125,4 +94,11 @@ export async function i3(theme, schemeName){
   } catch(err){
     console.log(`Couldnt write i3 config file: ${err}`)
   }
+}
+
+export async function i3status(theme, schemeName, file){
+  let update
+  let colorsReg = /(\t*color_(good|bad|degraded).*\n)+/
+  console.log(theme.match(colorsReg))
+  
 }

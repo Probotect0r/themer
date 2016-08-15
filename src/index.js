@@ -6,11 +6,10 @@
  */
 
 import { buildTheme } from 'base16-builder'
-import { apps, brightness } from './config.js'
+import { apps, appsConf, brightness } from './config.js'
 import fs from 'fs-promise'
 
-(async function(){
-
+async function theme(){
   // Need to check if there was a scheme name specified and use that
   // Otherwise choose a random scheme
   let schemeName
@@ -47,7 +46,7 @@ import fs from 'fs-promise'
 
   // Get all the templates for the specified apps
   let templates = {}
-  await Promise.all(Object.keys(apps).map(async (app) => {
+  await Promise.all(apps.map(async (app) => {
     try{
       templates[app] = await fs.readFile(`${basePath}templates/${app}/${brightness}.ejs`, 'utf8')
     } catch(err){
@@ -57,15 +56,30 @@ import fs from 'fs-promise'
   
   // The different promises have to be done in series to make sure
   // there are no file write conflicts when the same file is being edited for 
-  // two different files (i.e vim and vim_airline)
-  let keys = Object.keys(apps)
-  for(let i = 0; i < keys.length; i++){
-    let theme = buildTheme(scheme, templates[keys[i]])  
+  // two different templates (i.e vim and vim_airline)
+  for(let app of apps){
+    console.log(app)
+    // Build the theme
+    let theme = buildTheme(scheme, templates[app])  
+
+    // Read the file that will need to be edited
+    let file
     try {
-      await apps[keys[i]].apply(theme, schemeName)
+      file = await fs.readFile(appsConf[app].file, 'utf-8')
     } catch(err){
-      console.log(`Couldn't apply the theme: ${err}`)
+      console.log(`Couldn't read the file ${appsConf[app].file}: ${err}`)
+    }
+
+    try {
+      await appsConf[app].apply(theme, schemeName, file)
+    } catch(err){
+      console.log(`Couldn't apply the theme to ${app}: ${err}`)
     }
   }
 
-})()
+}
+
+theme()
+  .catch(err => {
+    console.log(`ERROR: ${err}`)
+  })
