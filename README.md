@@ -24,3 +24,6 @@ Run `npm i` to install the packages. Then run `npm run start` to run the script.
 ### Contributing
 
 Feel free to submit a pull request.
+
+### Attributions
+* The amazing [base16-builder](https://github.com/base16-builder/base16-builder). This project uses it to generate theme templates.
