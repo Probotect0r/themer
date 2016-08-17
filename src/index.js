@@ -28,7 +28,8 @@ async function theme(){
     }
 
     // Get a random int between 0 and # of schmes
-    let num = Math.floor(Math.random() * (schemes.length + 1))
+    let num = Math.floor(Math.random() * (schemes.length))
+    console.log('The num', num, schemes.length)
 
     // Get the scheme name
     schemeName = schemes[num].substring(0, schemes[num].length - 4)

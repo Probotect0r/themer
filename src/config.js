@@ -28,7 +28,7 @@ const appsConf = {
   }
 }
 
-const apps = ['i3', 'rxvt-unicode', 'vim-airline', 'vim', 'i3status']
+const apps = ['i3', 'rxvt-unicode', 'vim-airline', 'vim']
 
 const brightness = 'dark'
 

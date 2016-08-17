@@ -9,6 +9,7 @@ Currently the following applications are supported (more to come):
 * Vim
 * Vim-airline
 * rxvt_unicode (.Xresources)
+* i3wm
 
 ### Running
 
@@ -16,10 +17,9 @@ Run `npm i` to install the packages. Then run `npm run start` to run the script.
 
 ### To-Do
 
-* Add support for more applications.
-* Add the ability to specify the applications for which the theme should be changed, via a config file.
+* Add support for more applications (i3status)
 * Add the ability to specify a list of themes which are to be avoided.
-* Add more schemes by grabbing schemes from Xcolors.net (Use B16B to build them?)
+* Add more schemes by grabbing schemes from Xcolors.net (Use B16B to build them? Their color layout is different then b16)
 
 ### Contributing
 

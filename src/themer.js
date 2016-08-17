@@ -99,6 +99,5 @@ export async function i3(theme, schemeName, file){
 export async function i3status(theme, schemeName, file){
   let update
   let colorsReg = /(\t*color_(good|bad|degraded).*\n)+/
-  console.log(theme.match(colorsReg))
-  
+  //console.log(theme.match(colorsReg))
 }
