@@ -1,6 +1,7 @@
 import fs from 'fs-promise'
 import { execSync } from 'child_process'
 
+// VIM THEME
 export async function vim(theme, schemeName, file){
 
   // Write the theme file to the .vim/colors/ folder
@@ -23,6 +24,7 @@ export async function vim(theme, schemeName, file){
   }
 }
 
+// VIM_AIRLINE THEME
 export async function vim_airline(theme, schemeName, file){
   // Get the scheme name used in the template so we can use 
   // that as the file name (I think they have to be the same?)
@@ -50,6 +52,7 @@ export async function vim_airline(theme, schemeName, file){
   }
 }
 
+// RXVT_UNICODE (.Xresources)
 export async function rxvt_unicode(theme, schemeName, file){
 
   // Remove the previous scheme settings
@@ -69,7 +72,7 @@ export async function rxvt_unicode(theme, schemeName, file){
   execSync('xrdb ~/.Xresources')
 }
 
-// Applies the theme to the i3 config
+// I3 THEME
 export async function i3(theme, schemeName, file){
 
   // Need to get the individual sections from the theme
@@ -96,8 +99,15 @@ export async function i3(theme, schemeName, file){
   }
 }
 
+// I3 STATUS
 export async function i3status(theme, schemeName, file){
-  let update
-  let colorsReg = /(\t*color_(good|bad|degraded).*\n)+/
-  //console.log(theme.match(colorsReg))
+  let colorsReg = /((colors|color_)(good|bad|degraded|(\s=\s)).*\s*)+/
+  let themeColors = theme.match(colorsReg)
+  let update = file.replace(colorsReg, themeColors[0])
+  
+  try {
+    await fs.writeFile(`${process.env.HOME}/.config/i3status/config`, update)
+  } catch(err){
+    console.log(`Couldn't write the i3status config file: ${err}`)
+  }
 }
