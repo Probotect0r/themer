@@ -1,0 +1,9 @@
+{
+<<<<<<< a6df3cbc4478fcd41253cc80e5bcf23873e6bbf0
+  "presets": [
+    "node5"
+  ]
+=======
+  "presets": ["node5"]
+>>>>>>> Initial commit after fork.
+}
