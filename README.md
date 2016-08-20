@@ -10,7 +10,7 @@ Currently the following applications are supported (more to come):
 * Vim-airline
 * rxvt_unicode (.Xresources)
 * i3wm
-<<<<<<< a6df3cbc4478fcd41253cc80e5bcf23873e6bbf0
+* i3status
 
 ### Running
 
@@ -21,8 +21,6 @@ Run `npm i` to install the packages. Then run `npm run start` to run the script.
 * Add support for more applications (i3status)
 * Add the ability to specify a list of themes which are to be avoided.
 * Add more schemes by grabbing schemes from Xcolors.net (Use B16B to build them? Their color layout is different then b16)
-=======
-* i3status
 
 ### Running
 
@@ -33,17 +31,12 @@ Run `npm i` to install the packages. Then run `npm run start` to run the script.
 * Add support for more applications (GTK)
 * Add the ability to specify a list of themes which are to be avoided.
 * Add more schemes by grabbing schemes from Xcolors.net (Their color layout is different then b16)
->>>>>>> Initial commit after fork.
 
 ### Contributing
 
 Feel free to submit a pull request.
 
 ### Attributions
-<<<<<<< a6df3cbc4478fcd41253cc80e5bcf23873e6bbf0
-* The amazing [base16-builder](https://github.com/base16-builder/base16-builder). This project uses it to generate theme templates.
-=======
 
 * This was originally forked from the amazing [base16-builder](https://github.com/base16-builder/base16-builder) so all credit goes
 it's contributors for the code, schemes and templates.
->>>>>>> Initial commit after fork.

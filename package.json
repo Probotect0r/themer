@@ -1,25 +1,4 @@
 {
-<<<<<<< a6df3cbc4478fcd41253cc80e5bcf23873e6bbf0
-  "name": "themer",
-  "version": "1.0.0",
-  "description": "",
-  "main": "themer.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prestart": "babel src -d dist",
-    "start": "node dist/index.js",
-    "watch": "nodemon --watch src --exec npm start",
-    "build": "babel src -d dist"
-  },
-  "author": "",
-  "dependencies": {
-    "base16-builder": "^1.2.0",
-    "fs-promise": "^0.5.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.11.4",
-    "babel-preset-node5": "^11.1.0"
-=======
   "name": "linux-ricer",
   "version": "1.0.0",
   "description": "",
@@ -75,6 +54,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
->>>>>>> Initial commit after fork.
   }
 }

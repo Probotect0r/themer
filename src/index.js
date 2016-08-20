@@ -5,11 +5,7 @@
  *
  */
 
-<<<<<<< a6df3cbc4478fcd41253cc80e5bcf23873e6bbf0
-import { buildTheme } from 'base16-builder'
-=======
 import { buildTheme } from './RenderTheme.js'
->>>>>>> Initial commit after fork.
 import { apps, appsConf, brightness } from './config.js'
 import fs from 'fs-promise'
 
@@ -17,11 +13,7 @@ async function theme(){
   // Need to check if there was a scheme name specified and use that
   // Otherwise choose a random scheme
   let schemeName
-<<<<<<< a6df3cbc4478fcd41253cc80e5bcf23873e6bbf0
-  let basePath = 'node_modules/base16-builder/dist/db/'
-=======
   let basePath = __dirname + '/db/'
->>>>>>> Initial commit after fork.
 
   if(process.argv[2] != null){
     schemeName = process.argv[2]
@@ -30,21 +22,14 @@ async function theme(){
     // Load all the schemes files
     let schemes
     try{
-<<<<<<< a6df3cbc4478fcd41253cc80e5bcf23873e6bbf0
       schemes = await fs.readdir(basePath + 'schemes')
-=======
-      schemes = await fs.readdir( basePath + 'schemes')
->>>>>>> Initial commit after fork.
+
     } catch(error){
       return console.log('Couldn\'t read the schemes:', error)
     }
 
     // Get a random int between 0 and # of schmes
     let num = Math.floor(Math.random() * (schemes.length))
-<<<<<<< a6df3cbc4478fcd41253cc80e5bcf23873e6bbf0
-    console.log('The num', num, schemes.length)
-=======
->>>>>>> Initial commit after fork.
 
     // Get the scheme name
     schemeName = schemes[num].substring(0, schemes[num].length - 4)

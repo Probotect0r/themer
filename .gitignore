@@ -1,7 +1,4 @@
 node_modules
 dist
-<<<<<<< a6df3cbc4478fcd41253cc80e5bcf23873e6bbf0
-=======
 npm-debug.log
 .tern-port
->>>>>>> Initial commit after fork.
