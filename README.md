@@ -20,7 +20,7 @@ Run `npm i` to install the packages. Then run `npm run start` to run the script.
 
 * Add support for more applications (i3status)
 * Add the ability to specify a list of themes which are to be avoided.
-* Add more schemes by grabbing schemes from Xcolors.net (Use B16B to build them? Their color layout is different then b16)
+* Add more schemes by grabbing schemes from Xcolors.net, and randomly generated HUSL colors from [ terminal.sexy ](terminal.sexy) (Use B16B to build them? Their color layout is different then b16)
 
 ### Running
 
@@ -28,7 +28,7 @@ Run `npm i` to install the packages. Then run `npm run start` to run the script.
 
 ### To-Do
 
-* Add support for more applications (GTK)
+* Add support for more applications (GTK, Rofi)
 * Add the ability to specify a list of themes which are to be avoided.
 * Add more schemes by grabbing schemes from Xcolors.net (Their color layout is different then b16)
 
