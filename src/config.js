@@ -28,7 +28,7 @@ const appsConf = {
   }
 }
 
-//const apps = ['i3', 'rxvt-unicode', 'vim-airline', 'vim']
+// CHANGE THIS TO CHANGE THE APPLICATIONS THAT GET UPDATED //
 const apps = ['i3', 'rxvt-unicode', 'vim-airline', 'vim', 'i3status']
 
 const brightness = 'dark'

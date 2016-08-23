@@ -15,11 +15,7 @@ Currently the following applications are supported (more to come):
 ### Running
 
 Run `npm i` to install the packages. Then run `npm run start` to run the script. The scheme name will be output in the console.
-
-
-### Running
-
-Run `npm i` to install the packages. Then run `npm run start` to run the script. The scheme name will be output in the console, as well as the applications which were updated..
+To change the collection of applications that get updated, you can change the `apps` array in the src/config.js file.
 
 ### To-Do
 
