@@ -13,7 +13,7 @@ const logger = {
   error: message => console.error(chalk.red(message))
 }
 
-(async function() {
+(async function () {
   async function resolvePath (path) {
     let stat = await fs.lstat(path)
     if (stat.isFile()) {
