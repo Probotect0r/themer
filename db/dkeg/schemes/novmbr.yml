@@ -1,0 +1,23 @@
+#! -- Title:     novmbr 
+#! -- Author:    dkeg 
+#! -- Created:   2015 
+#! -- Modified:  2016
+
+bg:    "#1f1a17"
+fg:    "#c7b8ac"
+blk:   "#251e1b"
+bblk:  "#433c38"
+red:   "#9f6434"
+grn:   "#9dac5f"
+ylw:   "#cca75f"
+blu:   "#2f7d7c"
+mag:   "#b5896e"
+cyn:   "#52877f"
+wht:   "#c7b8ac"
+bred:  "#9f6434"
+bgrn:  "#9dac5f"
+bylw:  "#cca75f"
+bblu:  "#2f7d7c"
+bmag:  "#b5896e"
+bcyn:  "#52877f"
+bwht:  "#c7b8ac"

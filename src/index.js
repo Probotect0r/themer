@@ -11,7 +11,7 @@ import path from 'path'
 
 async function theme () {
   let type = process.argv[2] === 'base16' ? 'base16' : 'dkeg'
-  let basePath = path.join(__dirname, '/db/' + type + '/')
+  let basePath = path.join(__dirname, '/../db/' + type + '/')
 
   let schemeName = await getSchemeName(basePath, type)
 
@@ -19,9 +19,8 @@ async function theme () {
 
   // Get the chosen scheme file
   let scheme
-  let ext = type === 'base16' ? '.yml' : ''
   try {
-    scheme = await fs.readFile(basePath + 'schemes/' + schemeName + ext, 'utf8')
+    scheme = await fs.readFile(basePath + 'schemes/' + schemeName + '.yml', 'utf8')
   } catch (error) {
     console.log('Couldnt read the scheme file.' + error)
   }
@@ -100,7 +99,7 @@ async function getSchemeName (basePath, type) {
   } else {
     let schemes
     try {
-      schemes = await fs.readdir(basePath + 'schemes')
+      schemes = await fs.readdir(basePath + 'schemes/')
     } catch (error) {
       return console.log('Couldn\'t read the schemes:', error)
     }
@@ -109,7 +108,7 @@ async function getSchemeName (basePath, type) {
     let num = Math.floor(Math.random() * (schemes.length))
 
     // Get the scheme name
-    schemeName = type === 'base16' ? schemes[num].substring(0, schemes[num].length - 4) : schemes[num]
+    schemeName = schemes[num].substring(0, schemes[num].length - 4)
   }
 
   return schemeName

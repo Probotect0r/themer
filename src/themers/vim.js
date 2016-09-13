@@ -1,4 +1,4 @@
-import { fs } from 'fs-promise'
+import fs from 'fs-promise'
 
 async function base16Vim (theme, schemeName, file) {
   // Write the theme file to the .vim/colors/ folder
@@ -23,7 +23,12 @@ async function base16Vim (theme, schemeName, file) {
 
 async function dkegVim () {
   // Need to change the colorscheme to generic, and write out the generic color scheme
-
+  let fileName = 'generic.vim'
+  try {
+    await fs.writeFile(`${process.env.HOME}/.vim/colors/${filename}.vim`) 
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 export {

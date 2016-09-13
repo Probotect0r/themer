@@ -1,0 +1,23 @@
+#! -- Title:     corduroy 
+#! -- Author:    dkeg
+#! -- Created:   2015
+
+bg:      "#1b140f"
+fg:      "#c0b9af"
+blk:     "#1e1611"
+bblk:    "#312b26"
+red:     "#663c23"
+grn:     "#d9cfc0"
+ylw:     "#987f4b"
+blu:     "#433125"
+mag:     "#9c8065"
+cyn:     "#685a50"
+wht:     "#b7afa4"
+bred:    "#663c23"
+bgrn:    "#d9cfc0"
+bylw:    "#987f4b"
+bblu:    "#433125"
+bmag:    "#9c8065"
+bcyn:    "#685a50"
+bwht:    "#b7afa4"
+

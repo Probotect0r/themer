@@ -1,0 +1,22 @@
+#! -- Author:  dkeg
+#! -- Created: 2016
+#! -- Title:   petal 
+
+bg:    "#24231f"
+blk:   "#282622"
+bblk:  "#343331"
+fg:    "#94936e"
+red:   "#785326"
+grn:   "#516941"
+ylw:   "#827834"
+blu:   "#42514f"
+mag:   "#6a5632"
+cyn:   "#4e5d4d"
+wht:   "#94936e"
+bred:  "#785326"
+bgrn:  "#516941"
+bylw:  "#827834"
+bblu:  "#42514f"
+bmag:  "#6a5632"
+bcyn:  "#4e5d4d"
+bwht:  "#94936e"

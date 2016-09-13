@@ -1,0 +1,23 @@
+#! -- Title:     victory
+#! -- Author:    dkeg
+#! -- Created:   2015
+#! -- Modified:  2016
+
+bg:    "#2c2c36"
+fg:    "#c4c4b5"
+blk:   "#31313d"
+bblk:  "#454550"
+red:   "#9c6647"
+grn:   "#708684"
+ylw:   "#a29474"
+blu:   "#697284"
+mag:   "#796a70"
+cyn:   "#47676e"
+wht:   "#c4c4b5"
+bred:  "#9c6647"
+bgrn:  "#708684"
+bylw:  "#a29474"
+bblu:  "#697284"
+bmag:  "#796a70"
+bcyn:  "#47676e"
+bwht:  "#c4c4b5"

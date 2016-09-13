@@ -10,7 +10,7 @@
     "test": "ava tests --require babel-register",
     "testw": "nodemon --watch src --watch tests --exec npm run test",
     "pretest": "npm run build",
-    "prebuild": "rm -rf dist && mkdir dist && cp -r src/db/ dist/",
+    "prebuild": "rm -rf dist && mkdir dist",
     "build": "babel src --out-dir dist && chmod +x dist/cli.js",
     "prestart": "npm run build",
     "start": "node dist/index.js",

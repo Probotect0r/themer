@@ -1,0 +1,22 @@
+#! -- Title:   transposet 
+#! -- Author:  dkeg
+#! -- Created: 2016
+
+bg:    "#2f2c2a"
+blk:   "#302e2c"
+fg:    "#b8b2a7"
+bblk:  "#4f4d4b"
+red:   "#8e6f64"
+grn:   "#849385"
+ylw:   "#bdac8c"
+blu:   "#4c5467"
+mag:   "#757580"
+cyn:   "#64697f"
+wht:   "#b8b2a7"
+bred:  "#8e6f64"
+bgrn:  "#849385"
+bylw:  "#bdac8c"
+bblu:  "#4c5467"
+bmag:  "#757580"
+bcyn:  "#64697f"
+bwht:  "#b8b2a7"
