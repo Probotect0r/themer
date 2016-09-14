@@ -8,6 +8,8 @@ import { buildTheme } from './RenderTheme.js'
 import { apps, appsConf, brightness } from './config.js'
 import fs from 'fs-promise'
 import path from 'path'
+import yaml from 'js-yaml'
+import { render } from 'ejs'
 
 async function theme () {
   let type = process.argv[2] === 'base16' ? 'base16' : 'dkeg'
@@ -18,22 +20,15 @@ async function theme () {
   console.log('schemeName:', schemeName)
 
   // Get the chosen scheme file
-  let scheme
+  let yamlScheme
   try {
-    scheme = await fs.readFile(basePath + 'schemes/' + schemeName + '.yml', 'utf8')
+    yamlScheme = await fs.readFile(basePath + 'schemes/' + schemeName + '.yml', 'utf8')
   } catch (error) {
     console.log('Couldnt read the scheme file.' + error)
   }
+  
+  let scheme = yaml.load(yamlScheme)
 
-  if (type === 'base16') {
-    await applyBase16(schemeName, scheme, basePath)
-  } else {
-    await applyDkeg(schemeName, scheme, basePath)
-  }
-}
-
-async function applyBase16 (schemeName, scheme, basePath) {
-  // Get all the templates for the specified apps
   let templates = {}
   await Promise.all(apps.map(async (app) => {
     try {
@@ -49,7 +44,12 @@ async function applyBase16 (schemeName, scheme, basePath) {
   for (let app of apps) {
     console.log(app)
     // Build the theme
-    let theme = buildTheme(scheme, templates[app])
+    let theme
+    if (type === 'base16') {
+      theme = buildBase16Theme(scheme, templates[app])
+    } else {
+      theme = buildDkegTheme(scheme, templates[app])
+    }
 
     // Read the file that will need to be edited
     let file
@@ -60,30 +60,7 @@ async function applyBase16 (schemeName, scheme, basePath) {
     }
 
     try {
-      await appsConf[app].base16(theme, schemeName, file)
-    } catch (err) {
-      console.log(`Couldn't apply the theme to ${app}: ${err}`)
-    }
-  }
-}
-
-async function applyDkeg (schemeName, scheme, basePath) {
-  // The different promises have to be done in series to make sure
-  // there are no file write conflicts when the same file is being edited for
-  // two different templates (i.e vim and vim_airline)
-  for (let app of apps) {
-    console.log(app)
-
-    // Read the file that will need to be edited
-    let file
-    try {
-      file = await fs.readFile(appsConf[app].file, 'utf-8')
-    } catch (err) {
-      console.log(`Couldn't read the file ${appsConf[app].file}: ${err}`)
-    }
-
-    try {
-      await appsConf[app].dkeg(scheme, schemeName, file, basePath)
+      await appsConf[app][type](theme, schemeName, file)
     } catch (err) {
       console.log(`Couldn't apply the theme to ${app}: ${err}`)
     }
@@ -112,6 +89,13 @@ async function getSchemeName (basePath, type) {
   }
 
   return schemeName
+}
+
+function buildDkegTheme (scheme, template) {
+  const theme = render(template, scheme)
+  console.log(theme)
+  return theme
+  
 }
 
 theme()

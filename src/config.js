@@ -45,7 +45,7 @@ const appsConf = {
 }
 
 // CHANGE THIS TO CHANGE THE APPLICATIONS THAT GET UPDATED //
-const apps = ['rxvt-unicode', 'vim']
+const apps = ['rxvt-unicode']
 
 const brightness = 'dark'
 
