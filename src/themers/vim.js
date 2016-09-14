@@ -21,14 +21,16 @@ async function base16Vim (theme, schemeName, file) {
   }
 }
 
-async function dkegVim () {
+async function dkegVim (theme, schemeName, file) {
   // Need to change the colorscheme to generic, and write out the generic color scheme
-  let fileName = 'generic.vim'
   try {
-    await fs.writeFile(`${process.env.HOME}/.vim/colors/${filename}.vim`) 
+    await fs.writeFile(`${process.env.HOME}/.vim/colors/generic.vim`, theme) 
   } catch (err) {
     console.log(err)
   }
+
+  let reg = /colorscheme\s[a-zA-z0-9-]*\n/
+  let update = file.replace(reg, `colorscheme generic\n`)
 }
 
 export {
