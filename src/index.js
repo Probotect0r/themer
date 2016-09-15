@@ -93,7 +93,6 @@ async function getSchemeName (basePath, type) {
 
 function buildDkegTheme (scheme, template) {
   const theme = render(template, scheme)
-  console.log(theme)
   return theme
   
 }

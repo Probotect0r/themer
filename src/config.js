@@ -12,7 +12,9 @@ import {
   dkegI3,
 
   base16I3Status,
-  dkegI3Status
+  dkegI3Status,
+
+  dkegRofi
 
 } from './themers/'
 
@@ -41,11 +43,15 @@ const appsConf = {
     file: `${process.env.HOME}/.config/i3status/config`,
     base16: base16I3Status,
     dkeg: dkegI3Status
+  },
+  'rofi': {
+    file: `${process.env.HOME}/.Xresources`,
+    dkeg: dkegRofi
   }
 }
 
 // CHANGE THIS TO CHANGE THE APPLICATIONS THAT GET UPDATED //
-const apps = ['rxvt-unicode', 'vim']
+const apps = ['rxvt-unicode', 'rofi']
 
 const brightness = 'dark'
 
