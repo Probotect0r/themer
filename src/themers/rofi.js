@@ -3,7 +3,7 @@ import { execSync } from 'child_process'
 
 async function dkegRofi(theme, schemeName, file, type) {
   // reg for settings in 
-  let reg = /^rofi\.(lines|width|(hl)?fg.*|(hl)?bg.*|bc|bw):.*\n*/gm
+  let reg = /^rofi\.(lines|width|color-(window|normal|active|urgent)|bw):.*\n*/gm
   // comment reg
   let commentReg = /^!Rofi\n*/gm
   // Other settings that aren't part of the template
