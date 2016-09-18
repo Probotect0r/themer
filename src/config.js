@@ -14,7 +14,9 @@ import {
   base16I3Status,
   dkegI3Status,
 
-  dkegRofi
+  dkegRofi,
+
+  dkegLemonbar
 
 } from './themers/'
 
@@ -47,11 +49,15 @@ const appsConf = {
   'rofi': {
     file: `${process.env.HOME}/.Xresources`,
     dkeg: dkegRofi
+  },
+  'lemonbar': {
+    file: `${process.env.HOME}/.config/admiral.d/config`,
+    dkeg: dkegLemonbar
   }
 }
 
 // CHANGE THIS TO CHANGE THE APPLICATIONS THAT GET UPDATED //
-const apps = ['rxvt-unicode', 'rofi']
+const apps = ['lemonbar']
 
 const brightness = 'dark'
 
