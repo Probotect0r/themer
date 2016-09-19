@@ -1,7 +1,6 @@
 import fs from 'fs-promise'
 
 async function dkegLemonbar (theme, schemeName, file) {
-  console.log(theme)
   let update = file
   if (file === undefined) {
     update = theme
