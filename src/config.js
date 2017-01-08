@@ -57,7 +57,7 @@ const appsConf = {
 }
 
 // CHANGE THIS TO CHANGE THE APPLICATIONS THAT GET UPDATED //
-const apps = ['lemonbar', 'rofi', 'rxvt-unicode']
+const apps = ['rofi', 'rxvt-unicode']
 
 const brightness = 'dark'
 
