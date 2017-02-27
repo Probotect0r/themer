@@ -4,6 +4,7 @@
  * environment based on a base16 theme. This includes generating themes for multiple different applications.
  */
 
+import { buildTheme } from './RenderTheme.js'
 import { apps, appsConf, brightness } from './config.js'
 import fs from 'fs-promise'
 import path from 'path'
