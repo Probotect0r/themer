@@ -1,0 +1,24 @@
+set $colorbg <%- bg %>
+set $colorfg <%- fg %>
+set $colorblk <%- blk%>
+set $colorbblk <%- bblk %>
+set $colorred <%- red %>
+set $colorgrn <%- grn %>
+set $colorylw <%- ylw %>
+set $colorblu <%- blu %>
+set $colormag <%- mag %>
+set $colorcyn <%- cyn %>
+set $colorwht <%- wht %>
+set $colorbred <%- bred %>
+set $colorbgrn <%- bgrn %>
+set $colorbylw <%- bylw %>
+set $colorbblu <%- bblu %>
+set $colorbmag <%- bmag %>
+set $colorbcyn <%- bcyn %>
+set $colorbwht <%- bwht %>
+
+# Colors follow border, background, text, indicator, child_border
+client.focused $colorfg $colorbg $colorfg $colorblk $colorfg
+client.focused_inactive $colorfg $colorbg $colorfg $colorblk
+client.unfocused $colorbg $colorbg $colorfg $colorblk
+client.urgent $colorred $colorbg $colorfg $colorblk

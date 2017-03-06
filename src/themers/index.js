@@ -1,7 +1,8 @@
-export { base16Vim, dkegVim } from './vim.js'
-export { base16VimAirline, dkegVimAirline } from './vim-airline.js'
-export { base16RxvtUnicode, dkegRxvtUnicode } from './rxvt-unicode.js'
-export { base16I3, dkegI3 } from './i3.js'
-export { base16I3Status, dkegI3Status } from './i3-status.js'
-export { dkegRofi } from './rofi.js'
-export { dkegLemonbar } from './lemonbar.js'
+module.exports.vim = require('./vim.js')
+module.exports.vimAirline = require('./vim-airline.js')
+module.exports.rxvtUnicode = require('./rxvt-unicode.js')
+module.exports.i3 = require('./i3.js')
+module.exports.i3Status = require('./i3-status.js')
+module.exports.i3Bar = require('./i3bar.js')
+module.exports.rofi = require('./rofi.js')
+module.exports.lemonbar = require('./lemonbar.js')

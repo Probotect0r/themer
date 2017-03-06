@@ -4,17 +4,16 @@
  * environment based on a base16 theme. This includes generating themes for multiple different applications.
  */
 
-import { apps, appsConf, brightness } from './config.js'
-import fs from 'fs-promise'
-import path from 'path'
-import yaml from 'js-yaml'
-import { render } from 'ejs'
+const { apps, appsConf, brightness } = require('./config.js')
+const fs = require('fs-promise')
+const path = require('path')
+const yaml = require('js-yaml')
+const { render } = require('ejs')
 
 async function theme () {
-	let type = process.argv[2] === 'base16' ? 'base16' : 'dkeg'
-	let basePath = path.join(__dirname, '/../db/' + type + '/')
+	let basePath = path.join(__dirname, '/../db/')
 	
-	let schemeName = await getSchemeName(basePath, type)
+	let schemeName = await getSchemeName(basePath)
 
 	console.log('schemeName:', schemeName)
 
@@ -44,11 +43,7 @@ async function theme () {
 		console.log(app)
 		// Build the theme
 		let theme
-		if (type === 'base16') {
-			theme = buildBase16Theme(scheme, templates[app])
-		} else {
-			theme = buildDkegTheme(scheme, templates[app])
-		}
+		theme = buildTheme(scheme, templates[app])
 
 		// Read the file that will need to be edited
 		let file
@@ -57,21 +52,21 @@ async function theme () {
 		} catch (err) {
 			console.log(`Couldn't read the file ${appsConf[app].file}: ${err}`)
 		}
-
+		
+		// Apply the theme to the application
 		try {
-			await appsConf[app][type](theme, schemeName, file)
+			await appsConf[app].themer(theme, schemeName, file, appsConf[app].file, scheme)
 		} catch (err) {
 			console.log(`Couldn't apply the theme to ${app}: ${err}`)
 		}
 	}
 }
 
-async function getSchemeName (basePath, type) {
+async function getSchemeName (basePath) {
 	// Need to check if there was a scheme name specified and use that
 	let schemeName
-
-	if (process.argv[3] !== undefined) {
-		schemeName = process.argv[3]
+	if (process.argv[2] !== undefined) {
+		schemeName = process.argv[2]
 	} else {
 		let schemes
 		try {
@@ -90,7 +85,7 @@ async function getSchemeName (basePath, type) {
 	return schemeName
 }
 
-function buildDkegTheme (scheme, template) {
+function buildTheme(scheme, template) {
 	const theme = render(template, scheme)
 	return theme
 

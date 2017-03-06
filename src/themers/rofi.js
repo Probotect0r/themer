@@ -1,7 +1,7 @@
-import fs from 'fs-promise'
-import { execSync } from 'child_process'
+const fs = require('fs-promise')
+const execSync = require('child_process').execSync
 
-async function dkegRofi(theme, schemeName, file, type) {
+async function rofi(theme, schemeName, file, fileName) {
   // reg for settings in 
   let reg = /^rofi\.(lines|width|color-(window|normal|active|urgent)|bw):.*\n*/gm
   // comment reg
@@ -21,7 +21,7 @@ async function dkegRofi(theme, schemeName, file, type) {
   update = update + theme + '\n' + (other != null ? other.join('') : '')
 
   try {
-    await fs.writeFile(`${process.env.HOME}/.Xresources`, update)
+    await fs.writeFile(fileName, update)
   } catch (err) {
     console.log(err)
   }
@@ -29,6 +29,4 @@ async function dkegRofi(theme, schemeName, file, type) {
   execSync('xrdb ~/.Xresources')
 }
 
-export {
-  dkegRofi
-}
+module.exports = rofi
