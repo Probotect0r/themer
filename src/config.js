@@ -27,8 +27,7 @@ const appsConf = {
 		themer: i3
 	},
 	'i3status': {
-		file: `${process.env.HOME}/.config/i3status/config`,
-		themer: i3Status
+		file: `${process.env.HOME}/.config/i3status/config`, themer: i3Status
 	},
 	'i3bar': {
 		file: `${process.env.HOME}/.config/i3/config`,

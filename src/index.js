@@ -1,7 +1,8 @@
 /*
  * Author: Sagar Desai
  * Description: Purpose of this project is to randomly generate a full theme for linux
- * environment based on a base16 theme. This includes generating themes for multiple different applications.
+ * environment based on a color shceme. 
+ * This includes generating themes for multiple different applications and applying them.
  */
 
 const { apps, appsConf, brightness } = require('./config.js')
@@ -10,7 +11,7 @@ const path = require('path')
 const yaml = require('js-yaml')
 const { render } = require('ejs')
 
-async function theme () {
+async function theme() {
 	let basePath = path.join(__dirname, '/../db/')
 	
 	let schemeName = await getSchemeName(basePath)
@@ -62,7 +63,7 @@ async function theme () {
 	}
 }
 
-async function getSchemeName (basePath) {
+async function getSchemeName(basePath) {
 	// Need to check if there was a scheme name specified and use that
 	let schemeName
 	if (process.argv[2] !== undefined) {
@@ -88,7 +89,6 @@ async function getSchemeName (basePath) {
 function buildTheme(scheme, template) {
 	const theme = render(template, scheme)
 	return theme
-
 }
 
 theme()
