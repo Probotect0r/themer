@@ -44,7 +44,7 @@ const appsConf = {
 }
 
 // CHANGE THIS TO CHANGE THE APPLICATIONS THAT GET UPDATED //
-const apps = ['rofi', 'rxvt-unicode', 'i3bar', 'i3status', 'i3']
+const apps = ['rofi', 'rxvt-unicode', 'i3bar', 'i3status', 'i3', 'vim']
 
 // Only 'dark' supported for now
 // Put i3 after all other i3 related apps, as the i3 themer also restarts i3
