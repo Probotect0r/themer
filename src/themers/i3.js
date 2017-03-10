@@ -7,12 +7,10 @@ async function i3(theme, schemeName, file, fileName) {
 	let update
 	let clientReg = /(client.(focused|unfocused|urgent|focused_inactive)\s.*\n)+/
 	let setColorReg = /(set\s\$color.{1,4}\s#.{6}\n)+/
-	// let barColorsReg = /colors\s{[a-zA-Z0-9\s\n$_#]*}/
 
 	// Get the different colors from the theme
 	let setColors = theme.match(setColorReg)
 	let clientColors = theme.match(clientReg)
-	// let barColors = theme.match(barColorsReg)
 
 	// Check for already set colors
 	if (file.match(setColorReg) == null) {
@@ -35,7 +33,8 @@ async function i3(theme, schemeName, file, fileName) {
 		console.log(`Couldnt write i3 config file: ${err}`)
 	}
 
-	execSync('i3-msg "restart"')
+	// reload i3
+	execSync('i3-msg reload')
 }
 
 module.exports = i3

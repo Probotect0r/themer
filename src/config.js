@@ -44,6 +44,7 @@ const appsConf = {
 }
 
 // CHANGE THIS TO CHANGE THE APPLICATIONS THAT GET UPDATED //
+// The values have to be one of the keys from the appsConf object
 const apps = ['rofi', 'rxvt-unicode', 'i3bar', 'i3status', 'i3', 'vim']
 
 // Only 'dark' supported for now
