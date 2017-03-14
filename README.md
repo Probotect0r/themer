@@ -1,5 +1,4 @@
 # Linux Themer
-#To-Do List
 
 ![](http://imgur.com/zLJu0ik.png)
 This program will automatically apply a color scheme to a collection of programs that you specify. The goal is to make it very easy to rice 
