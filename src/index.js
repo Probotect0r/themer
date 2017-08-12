@@ -28,6 +28,7 @@ async function theme() {
 
 	let scheme = yaml.load(yamlScheme)
 
+	// Load all the templates
 	let templates = {}
 	await Promise.all(apps.map(async (app) => {
 		try {
@@ -49,7 +50,9 @@ async function theme() {
 		// Read the file that will need to be edited
 		let file
 		try {
-			file = await fs.readFile(appsConf[app].file, 'utf-8')
+			if (appsConf[app].file) {
+				file = await fs.readFile(appsConf[app].file, 'utf-8')
+			}
 		} catch (err) {
 			console.log(`Couldn't read the file ${appsConf[app].file}: ${err}`)
 		}
