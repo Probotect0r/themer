@@ -1,0 +1,30 @@
+Title: "mugata"
+Author: "coleifer"
+Created: "2017"
+
+bg:     "#2d2d2d"
+fg:     "#ece8cf" 
+
+blk:    "#393939" 
+bblk:   "#474747" 
+
+red:    "#f26157" 
+bred:   "#ff8c85" 
+
+grn:    "#f1a66a" 
+bgrn:   "#ffc291" 
+
+ylw:    "#f7ee7f" 
+bylw:   "#fff9ab" 
+
+blu:    "#8d6a9f" 
+bblu:   "#d0a5e6" 
+
+mag:    "#55a3c2" 
+bmag:   "#70d6ff" 
+
+cyn:    "#1b998b" 
+bcyn:   "#3dc4b5" 
+
+wht:    "#dddddd" 
+bwht:   "#ece8c9" 
