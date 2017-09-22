@@ -69,7 +69,7 @@ const appsConf = {
 		themer: polybar
 	},
 	'termite': {
-		file: ``,
+		file: `${process.env.HOME}/.config/termite/config`,
 		themer: termite
 	}
 }
