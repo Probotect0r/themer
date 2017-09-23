@@ -3,7 +3,7 @@ const fs = require('fs-promise')
 async function vim(theme, schemeName, file, fileName) {
 	// Write the color scheme to the vim folder
 	try {
-		await fs.writeFile(fileName, theme) 
+		await fs.writeFile(`${process.env.HOME}/.vim/colors/generic.vim`, theme) 
 	} catch (err) {
 		console.log(err)
 	}

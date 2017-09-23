@@ -3,7 +3,7 @@ const fs = require('fs-promise')
 async function neovim(theme, schemeName, file, fileName) {
 	// Write the color scheme to the nvim folder
 	try {
-		await fs.writeFile(fileName, theme) 
+		await fs.writeFile(`${process.env.HOME}/.config/nvim/colors/generic.vim`, theme) 
 	} catch (err) {
 		console.log(err)
 	}
