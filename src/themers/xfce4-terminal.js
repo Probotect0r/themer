@@ -4,9 +4,9 @@ async function xfce4Terminal(theme, schemeName, file, fileName) {
 	// Write the color scheme to the vim folder
 	
 	// Remove the existing colors from the config
-	let fgBgReg = /Color(Foreground|Background).*\n*/g
-	let cursorReg = /ColorCursor(Foreground)?.*\n*/g
-	let paletteReg = /ColorPalette.*\n*/g
+	let fgBgReg = /Color(Foreground|Background)=.*\n*/g
+	let cursorReg = /ColorCursor(Foreground)?=.*\n*/g
+	let paletteReg = /ColorPalette=.*\n*/g
 
 	let update = file.replace(fgBgReg, '')
 	update = update.replace(cursorReg, '')
