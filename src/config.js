@@ -12,7 +12,8 @@ const {
 	gtk3,
 	xfce,
 	polybar,
-	termite
+	termite,
+	xfce4Terminal
 } = require('./themers/')
 
 const appsConf = {
@@ -71,6 +72,10 @@ const appsConf = {
 	'termite': {
 		file: `${process.env.HOME}/.config/termite/config`,
 		themer: termite
+	},
+	'xfce4-terminal': {
+		file: `${process.env.HOME}/.config/xfce4/terminal/terminalrc`,
+		themer: xfce4Terminal
 	}
 }
 
@@ -78,7 +83,7 @@ const appsConf = {
 // The values have to be one of the keys from the appsConf object
 // Put i3 after all other i3 related apps, as the i3 themer also restarts i3
 // Put xfce after all other ones that might affect it like gtk
-const apps = ['rofi', 'rxvt-unicode', 'vim', 'neovim', 'gtk2', 'gtk3', 'polybar', 'termite']
+const apps = ['rofi', 'rxvt-unicode', 'vim', 'neovim', 'gtk2', 'gtk3', 'polybar', 'termite', 'xfce4-terminal']
 
 // Only 'dark' supported for now
 const brightness = 'dark'
