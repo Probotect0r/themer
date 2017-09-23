@@ -53,18 +53,6 @@ const appsConf = {
 		file: `${process.env.HOME}/.config/nvim/init.vim`,
 		themer: neovim
 	},
-	'gtk2': {
-		file: ``,
-		themer: gtk2
-	},
-	'gtk3': {
-		file: ``,
-		themer: gtk3
-	},
-	'xfce': {
-		file: ``,
-		themer: xfce
-	},
 	'polybar': {
 		file: ``,
 		themer: polybar
@@ -83,7 +71,7 @@ const appsConf = {
 // The values have to be one of the keys from the appsConf object
 // Put i3 after all other i3 related apps, as the i3 themer also restarts i3
 // Put xfce after all other ones that might affect it like gtk
-const apps = ['rofi', 'rxvt-unicode', 'vim', 'neovim', 'gtk2', 'gtk3', 'polybar', 'termite', 'xfce4-terminal']
+const apps = ['rofi', 'neovim', 'polybar', 'xfce4-terminal']
 
 // Only 'dark' supported for now
 const brightness = 'dark'

@@ -16,7 +16,7 @@ async function termite(theme, schemeName, file, fileName) {
 	update = update + theme
 
 	try {
-		await fs.writeFile(`${process.env.HOME}/.config/termite/config`, update)
+		await fs.writeFile(fileName, update)
 	} catch (err) {
 		console.log(err)
 	}
