@@ -54,7 +54,7 @@ const appsConf = {
 		themer: neovim
 	},
 	'polybar': {
-		file: ``,
+		file: `${process.env.HOME}/.config/polybar/colors`,
 		themer: polybar
 	},
 	'termite': {

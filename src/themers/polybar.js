@@ -5,7 +5,7 @@ const { spawn } = require('child_process')
 async function polybar(theme, schemeName, file, fileName) {
 	// Write out the config
 	try {
-		await fs.writeFile(`${process.env.HOME}/.config/polybar/config`, theme)
+		await fs.writeFile(fileName, theme)
 	} catch (err) {
 		console.log(err)
 	}
@@ -19,7 +19,7 @@ async function polybar(theme, schemeName, file, fileName) {
 
 	// Spawn a subprocess in detached state, then unreference it so it 
 	// doesn't stop after parent exits
-	const subprocess = spawn('polybar', ['example'], {
+	const subprocess = spawn('polybar', ['default'], {
 		deatched: true,
 		stdio: 'ignore'
 	})
