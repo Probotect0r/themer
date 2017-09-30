@@ -18,10 +18,6 @@ const appsConf = {
 		file: `${process.env.HOME}/.vimrc`,
 		themer: vim
 	},
-	'vim-airline': {
-		file: `${process.env.HOME}/.vimrc`,
-		themer: vimAirline
-	},
 	'rxvt-unicode': {
 		file: `${process.env.HOME}/.Xresources`,
 		themer: rxvtUnicode,
