@@ -1,6 +1,5 @@
 const {
 	vim,
-	vimAirline,
 	rxvtUnicode,
 	i3,
 	i3Status,
@@ -8,8 +7,6 @@ const {
 	rofi,
 	lemonbar,
 	neovim,
-	gtk2,
-	gtk3,
 	xfce,
 	polybar,
 	termite,
