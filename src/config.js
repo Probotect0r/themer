@@ -5,7 +5,6 @@ const {
 	i3Status,
 	i3Bar,
 	rofi,
-	lemonbar,
 	neovim,
 	xfce,
 	polybar,
@@ -37,10 +36,6 @@ const appsConf = {
 	'rofi': {
 		file: `${process.env.HOME}/.Xresources`,
 		themer: rofi
-	},
-	'lemonbar': {
-		file: `${process.env.HOME}/.config/admiral.d/config`,
-		themer: lemonbar
 	},
 	'neovim': {
 		file: `${process.env.HOME}/.config/nvim/init.vim`,
