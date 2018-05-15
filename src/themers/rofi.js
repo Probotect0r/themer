@@ -3,7 +3,7 @@ const execSync = require('child_process').execSync
 
 async function rofi(theme, schemeName, file, fileName) {
   // reg for settings in 
-  let reg = /^rofi\.(lines|width|color-(window|normal|active|urgent)|bw):.*\n*/gm
+  let reg = /^rofi\.color-(window|normal|active|urgent):.*\n*/gm
   // comment reg
   let commentReg = /^!Rofi\n*/gm
   // Other settings that aren't part of the template
