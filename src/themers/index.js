@@ -8,3 +8,5 @@ module.exports.neovim = require('./neovim.js')
 module.exports.polybar = require('./polybar.js')
 module.exports.termite = require('./termite.js')
 module.exports.xfce4Terminal = require('./xfce4-terminal.js')
+module.exports.awesome = require('./awesome.js')
+
