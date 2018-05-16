@@ -52,6 +52,9 @@ const appsConf = {
 	'xfce4-terminal': {
 		file: `${process.env.HOME}/.config/xfce4/terminal/terminalrc`,
 		themer: xfce4Terminal
+	},
+	'awesomewm': {
+		file: `${process.env.HOME}/.config/awesomwm/rc.lua`
 	}
 }
 
@@ -59,7 +62,7 @@ const appsConf = {
 // The values have to be one of the keys from the appsConf object
 // Put i3 after all other i3 related apps, as the i3 themer also restarts i3
 // Put xfce after all other ones that might affect it like gtk
-const apps = ['rofi', 'neovim', 'polybar', 'xfce4-terminal', 'i3']
+const apps = ['rofi', 'neovim', 'xfce4-terminal']
 
 // Only 'dark' supported for now
 const brightness = 'dark'

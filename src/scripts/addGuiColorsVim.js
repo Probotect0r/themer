@@ -1,7 +1,6 @@
 const fs = require('fs-promise')
 
 async function addGuiColors () {
-	// Some comment
 	let file
 	try {
 		file = await fs.readFile(__dirname + '/../../db/templates/vim/dark.ejs', 'utf8')
