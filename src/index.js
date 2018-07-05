@@ -13,89 +13,97 @@ const yaml = require('js-yaml')
 const { render } = require('ejs')
 
 async function theme() {
-	let basePath = path.join(__dirname, '/../db/')
-	
-	let schemeName = await getSchemeName(basePath)
+    let basePath = path.join(__dirname, '/../db')
 
-	console.log('schemeName:', schemeName)
+    let schemeName = await getSchemeName(basePath)
 
-	// Get the chosen scheme file
-	let yamlScheme
-	try {
-		yamlScheme = await fs.readFile(basePath + 'schemes/' + schemeName + '.yml', 'utf8')
-	} catch (error) {
-		console.log('Couldnt read the scheme file.' + error)
-	}
+    console.log('Scheme: ', schemeName)
 
-	let scheme = yaml.load(yamlScheme)
+    const yamlScheme = await getYamlForScheme(basePath, schemeName)
+    let scheme = yaml.load(yamlScheme)
 
-	// Load all the templates
-	let templates = {}
-	await Promise.all(apps.map(async (app) => {
-		try {
-			templates[app] = await fs.readFile(`${basePath}templates/${app}/${brightness}.ejs`, 'utf8')
-		} catch (err) {
-			console.log(`Couldnt read template for ${app}: ${err}`)
-		}
-	}))
+    let templates = await getTemplates(basePath, apps, brightness)
 
-	// The different promises have to be done in series to make sure
-	// there are no file write conflicts when the same file is being edited for
-	// two different templates (i.e vim and vim_airline)
-	for (let app of apps) {
-		console.log(app)
-		// Build the theme
-		let theme
-		theme = buildTheme(scheme, templates[app])
-
-		// Read the file that will need to be edited
-		let file
-		try {
-			if (appsConf[app].file) {
-				file = await fs.readFile(appsConf[app].file, 'utf-8')
-			}
-		} catch (err) {
-			console.log(`Couldn't read the file ${appsConf[app].file}: ${err}`)
-		}
-		
-		// Apply the theme to the application
-		try {
-			await appsConf[app].themer(theme, schemeName, file, appsConf[app].file, scheme)
-		} catch (err) {
-			console.log(`Couldn't apply the theme to ${app}: ${err}`)
-		}
-	}
+    await applyThemeToApps(apps, scheme, templates, appsConf)
 }
 
 async function getSchemeName(basePath) {
-	// Need to check if there was a scheme name specified and use that
-	let schemeName
-	if (process.argv[2] !== undefined) {
-		schemeName = process.argv[2]
-	} else {
-		let schemes
-		try {
-			schemes = await fs.readdir(basePath + 'schemes/')
-		} catch (error) {
-			return console.log('Couldn\'t read the schemes:', error)
-		}
-
-		// Get a random int between 0 and # of schmes
-		let num = Math.floor(Math.random() * (schemes.length))
-
-		// Get the scheme name
-		schemeName = schemes[num].substring(0, schemes[num].length - 4)
-	}
-
-	return schemeName
+    return process.argv[2] !== undefined ? process.argv[2] : await getRandomScheme(basePath)
 }
 
-function buildTheme(scheme, template) {
-	const theme = render(template, scheme)
-	return theme
+async function getRandomScheme(basePath) {
+    try {
+        let schemes = await fs.readdir(`${basePath}/schemes/`)
+
+        let num = Math.floor(Math.random() * (schemes.length))
+        schemeName = schemes[num].substring(0, schemes[num].length - 4)
+
+        return schemeName
+    } catch (error) {
+        return console.log("Couldn't read the schemes:", error)
+    }
+}
+
+async function getYamlForScheme(basePath, schemeName) {
+    try {
+        let yamlScheme = await fs.readFile(`${basePath}/schemes/${schemeName}.yml`, 'utf8')
+        return yamlScheme
+    } catch (error) {
+        console.log(`Could not read the scheme file: ${error}`)
+    }
+}
+
+async function getTemplates(basePath, apps, brightness) {
+    let allTemplates = await readAllTemplates(basePath, apps, brightness)
+
+    let temps = allTemplates.reduce((acc, cur) => {
+        let key = Object.keys(cur)[0]
+        let value = Object.values(cur)[0]
+        
+        acc[key] = value
+
+        return acc
+    }, {})
+
+    return temps
+}
+
+async function readAllTemplates(basePath, apps, brightness) {
+    let allTemplates = await Promise.all(apps.map(async (app) => {
+        let templatePath = `${basePath}/templates/${app}/${brightness}.ejs`
+        let template = await fs.readFile(templatePath, 'utf8') 
+        return { [app]: template }
+    }))
+
+    return allTemplates
+}
+
+async function applyThemeToApps(apps, scheme, templates, appsConf) {
+    for (let app of apps) {
+        console.log(`App: ${app}`)
+        let theme = render(templates[app], scheme)
+
+        let appFile = await getAppFile(appsConf[app].file)
+
+        try {
+            await appsConf[app].themer(theme, schemeName, appFile, appsConf[app].file, scheme)
+        } catch (err) {
+            console.log(`Couldn't apply the theme to ${app}: ${err}`)
+        }
+    }
+}
+
+async function getAppFile(filePath) {
+    try {
+        if (filePath != null && filePath !== "") {
+            return await fs.readFile(filePath, 'utf-8')
+        }
+    } catch (err) {
+        console.log(`Couldn't read the file ${filePath}: ${err}`)
+    }
 }
 
 theme()
-	.catch(err => {
-		console.log(err)
-	})
+    .catch(err => {
+        console.log(err)
+    })
