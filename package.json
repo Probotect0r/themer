@@ -16,17 +16,17 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^3.4.0",
+    "eslint": "^3.19.0",
     "eslint-config-standard": "^6.0.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-promise": "^2.0.1",
-    "eslint-plugin-standard": "^2.0.0",
-    "nodemon": "^1.8.1"
+    "eslint-plugin-standard": "^2.3.1",
+    "nodemon": "^1.18.3"
   },
   "dependencies": {
-    "ejs": "^2.4.1",
+    "ejs": "^2.6.1",
     "fs-promise": "^0.3.1",
     "hex-rgb": "^3.0.0",
-    "js-yaml": "^3.5.2"
+    "js-yaml": "^3.12.0"
   }
 }
