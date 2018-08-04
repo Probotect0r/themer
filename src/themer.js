@@ -1,113 +1,99 @@
-import fs from 'fs-promise'
-import { execSync } from 'child_process'
+const { apps, appsConf, brightness } = require('./config.js')
+const fs = require('fs-promise')
+const path = require('path')
+const yaml = require('js-yaml')
+const { render } = require('ejs')
 
-// VIM THEME
-export async function vim (theme, schemeName, file) {
-  // Write the theme file to the .vim/colors/ folder
-  let fileName = `base16_${schemeName}`
-  try {
-    await fs.writeFile(`${process.env.HOME}/.vim/colors/${fileName}.vim`, theme)
-  } catch (err) {
-    console.log(`Couldnt write the theme file: ${err}`)
-  }
+async function theme() {
+    let basePath = path.join(__dirname, '/../db')
 
-  // find the colorscheme line in .vimrc file and change it to use the new theme
-  let reg = /colorscheme\s[a-zA-z0-9-]*\n/
-  let update = file.replace(reg, `colorscheme base16_${schemeName}\n`)
+    let schemeName = await getSchemeName(basePath)
 
-  // Write the vimrc file
-  try {
-    await fs.writeFile(`${process.env.HOME}/.vimrc`, update)
-  } catch (err) {
-    console.log(`Couldnt write .vimrc: ${err}`)
-  }
+    console.log('Scheme: ', schemeName)
+
+    const yamlOfScheme = await getYamlForScheme(basePath, schemeName)
+    let scheme = yaml.load(yamlOfScheme)
+
+    let templates = await getTemplates(basePath, apps, brightness)
+
+    await applyThemeToApps(apps, scheme, templates, appsConf)
 }
 
-// VIM_AIRLINE THEME
-export async function vimAirline (theme, schemeName, file) {
-  // Get the scheme name used in the template so we can use
-  // that as the file name (I think they have to be the same?)
-  let sNameReg = /#base16[a-z0-9_-]*#/
-  let matches = theme.match(sNameReg)
-  schemeName = matches[0].substring(1, matches[0].length - 1)
-
-  // Write the theme file to the .vim/bundle/v folder
-  let fileName = schemeName
-  try {
-    await fs.writeFile(`${process.env.HOME}/.vim/bundle/vim-airline-themes/autoload/airline/themes/${fileName}.vim`, theme)
-  } catch (err) {
-    console.log(`Couldnt write the theme file: ${err}`)
-  }
-
-  // find the colorscheme line in .vimrc file and change it to use the new theme
-  let reg = /let\sg:airline_theme\s?=\s?'[a-zA-z0-9-]*'\n/g
-  let update = file.replace(reg, `let g:airline_theme='${schemeName}'\n`)
-
-  // Write the vimrc file
-  try {
-    await fs.writeFile(`${process.env.HOME}/.vimrc`, update)
-  } catch (err) {
-    console.log(`Couldnt write .vimrc: ${err}`)
-  }
+async function getSchemeName(basePath) {
+    return process.argv[2] !== undefined ? process.argv[2] : await getRandomScheme(basePath)
 }
 
-// RXVT_UNICODE (.Xresources)
-export async function rxvtUnicode (theme, schemeName, file) {
-  // Remove the previous scheme settings
-  let colorReg = /URxvt\*[a-zA-z0-9:\s]*#[0-9a-zA-Z]{6}\n/g // Regex for the color settings
-  let nameReg = /^!\s(Base16|Scheme:)\s.*\n/gm // Regex for the Name and Scheme info comments
-  let update = file.replace(colorReg, '').replace(nameReg, '')
-  update = update + theme
+async function getRandomScheme(basePath) {
+    try {
+        let schemes = await fs.readdir(`${basePath}/schemes/`)
 
-  // Write the update
-  try {
-    await fs.writeFile(`${process.env.HOME}/.Xresources`, update)
-  } catch (err) {
-    console.log(`Couldnt write .Xresources file: ${err}`)
-  }
+        let num = Math.floor(Math.random() * (schemes.length))
+        schemeName = schemes[num].substring(0, schemes[num].length - 4)
 
-  // Need to update Xrdb
-  execSync('xrdb ~/.Xresources')
+        return schemeName
+    } catch (error) {
+        return console.log("Couldn't read the schemes:", error)
+    }
 }
 
-// I3 THEME
-export async function i3 (theme, schemeName, file) {
-  // Need to get the individual sections from the theme
-  // Then replace the corresponding sections in the config with the new ones
-  let update
-  let clientReg = /(client.(focused|unfocused|urgent|focused_inactive)\s.*\n)+/
-  let setColorReg = /(set\s\$base.{2}\s#.{6}\n)+/
-  let barColorsReg = /colors\s{[a-zA-Z0-9\s\n$_#]*}/
-
-  let clientColors = theme.match(clientReg)
-  let setColors = theme.match(setColorReg)
-  let barColors = theme.match(barColorsReg)
-
-  let testSetColors = file.match(setColorReg)
-  if (testSetColors == null) {
-    update = '# Set colors\n' + setColors[0] + '\n' + file
-  } else {
-    update = file.replace(setColorReg, setColors[0])
-  }
-  update = update.replace(clientReg, clientColors[0]).replace(barColorsReg, barColors[0])
-
-  // Write the update
-  try {
-    await fs.writeFile(`${process.env.HOME}/.config/i3/config`, update)
-  } catch (err) {
-    console.log(`Couldnt write i3 config file: ${err}`)
-  }
+async function getYamlForScheme(basePath, schemeName) {
+    try {
+        let yamlScheme = await fs.readFile(`${basePath}/schemes/${schemeName}.yml`, 'utf8')
+        return yamlScheme
+    } catch (error) {
+        console.log(`Could not read the scheme file: ${error}`)
+    }
 }
 
-// I3 STATUS
-export async function i3status (theme, schemeName, file) {
-  let colorsReg = /((colors|color_)(good|bad|degraded|(\s=\s)).*\s*)+/
-  let themeColors = theme.match(colorsReg)
-  let update = file.replace(colorsReg, themeColors[0])
+async function getTemplates(basePath, apps, brightness) {
+    let allTemplates = await readAllTemplates(basePath, apps, brightness)
 
-  try {
-    await fs.writeFile(`${process.env.HOME}/.config/i3status/config`, update)
-  } catch (err) {
-    console.log(`Couldn't write the i3status config file: ${err}`)
-  }
+    let temps = allTemplates.reduce((acc, cur) => {
+        let key = Object.keys(cur)[0]
+        let value = Object.values(cur)[0]
+        
+        acc[key] = value
+
+        return acc
+    }, {})
+
+    return temps
 }
+
+async function readAllTemplates(basePath, apps, brightness) {
+    let allTemplates = await Promise.all(apps.map(async (app) => {
+        let templatePath = `${basePath}/templates/${app}/${brightness}.ejs`
+        let template = await fs.readFile(templatePath, 'utf8') 
+        return { [app]: template }
+    }))
+
+    return allTemplates
+}
+
+async function applyThemeToApps(apps, scheme, templates, appsConf) {
+    for (let app of apps) {
+        console.log(`App: ${app}`)
+        let theme = render(templates[app], scheme)
+
+        let appFile = await getAppFile(appsConf[app].file)
+
+        try {
+            await appsConf[app].themer(theme, schemeName, appFile, appsConf[app].file, scheme)
+        } catch (err) {
+            console.log(`Couldn't apply the theme to ${app}: ${err}`)
+        }
+    }
+}
+
+async function getAppFile(filePath) {
+    try {
+        if (filePath != null && filePath !== "") {
+            return await fs.readFile(filePath, 'utf-8')
+        }
+    } catch (err) {
+        console.log(`Couldn't read the file ${filePath}: ${err}`)
+    }
+}
+
+
+module.exports = theme
