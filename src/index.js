@@ -19,8 +19,8 @@ async function theme() {
 
     console.log('Scheme: ', schemeName)
 
-    const yamlScheme = await getYamlForScheme(basePath, schemeName)
-    let scheme = yaml.load(yamlScheme)
+    const yamlOfScheme = await getYamlForScheme(basePath, schemeName)
+    let scheme = yaml.load(yamlOfScheme)
 
     let templates = await getTemplates(basePath, apps, brightness)
 
