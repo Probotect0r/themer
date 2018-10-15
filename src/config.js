@@ -60,7 +60,7 @@ const appsConf = {
 	}
 }
 
-const apps = ['rofi']
+const apps = ['i3', 'neovim', 'polybar']
 
 // Only 'dark' supported for now
 const brightness = 'dark'
