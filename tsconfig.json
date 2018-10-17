@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "removeComments": true ,
+        "module": "ES6",
+        "outDir": "dist",
+        "allowJs": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}
