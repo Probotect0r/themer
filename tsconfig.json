@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "removeComments": true ,
-        "module": "ES6",
+        "module": "commonjs",
+        "target": "ES6",
         "outDir": "dist",
         "allowJs": true
     },
